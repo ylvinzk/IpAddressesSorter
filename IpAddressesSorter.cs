@@ -1,33 +1,20 @@
 public class IpAddressesSorter
     {
         private List<int[]> _numericIpAddresses = new List<int[]>();
-
-        #region Properties
-
         public bool Descending { get; set; }
-
-        #endregion
-
-        #region Constructors
-
+    
         public IpAddressesSorter(IEnumerable<string> ipAddresses)
         {
             Descending = false;
-
             foreach (var ipAddress in ipAddresses)
             {
                 _numericIpAddresses.Add(ConvertToNumericIpAddress(ipAddress));
             }
         }
 
-        #endregion
-
-        #region Methods
-
         private static int[] ConvertToNumericIpAddress(string ipAddress)
         {
             var octets = ipAddress.Split('.');
-
             return new[]
             {
                 Convert.ToInt32(octets[0]),
@@ -53,9 +40,7 @@ public class IpAddressesSorter
                 _numericIpAddresses = _numericIpAddresses.OrderByDescending(address => address[1]).ToList();
                 _numericIpAddresses = _numericIpAddresses.OrderByDescending(address => address[0]).ToList();
             }
-
             var sortedIpAddresses = new List<string>();
-
             foreach (var numericIpAddress in _numericIpAddresses)
             {
                 sortedIpAddresses.Add(
@@ -64,9 +49,6 @@ public class IpAddressesSorter
                     $"{numericIpAddress[2]}." +
                     $"{numericIpAddress[3]}");
             }
-
             return sortedIpAddresses;
         }
-
-        #endregion
     }
